@@ -1,0 +1,44 @@
+<%= form_with(model: movie, local: true) do |form| %>
+  <% if movie.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
+
+      <ul>
+      <% movie.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.file_field :photo %> <br>
+    <%= form.text_field :remote_photo_url %>
+    <%= form.hidden_field :photo_cache %>
+    <%= image_tag(@movie.photo) if @movie.photo? %>
+  </div> 
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :movie_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description, id: :movie_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :commentary %>
+    <%= form.text_area :commentary, id: :movie_commentary %>
+  </div>
+
+  <div class="field">
+    <%= form.label :year %>
+    <%= form.number_field :year, id: :movie_year %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
